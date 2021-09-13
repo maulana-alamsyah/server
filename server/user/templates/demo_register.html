@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Masuk</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<div class="d-flex justify-content-center" id="paper">
+    <div class="container text-center shadow-lg" id="content">
+        <div class="row justify-content-center">
+            <h6 class="fw-bold fs-2">Daftar</h6>
+        </div>
+
+        <form action='' method='POST'>
+          {% csrf_token %}
+          <div class="row justify-content-center">
+            <div class="input-group mb-2 mt-2">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+                <input type="text" name="username" id="username" class="form-control text-center" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+        </div>      
+        <div class="row justify-content-center">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+                <input type="password" name="password1" id="password1" class="form-control text-center" aria-label="Password" aria-describedby="basic-addon1">
+              </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Password</span>
+              <input type="password" name="password2" id="password2" class="form-control text-center" aria-label="Password" aria-describedby="basic-addon1">
+            </div>
+      </div>
+      <div class="container">
+        {{form.department}}
+        {{form.role}}
+      </div>
+            <input type="submit" class="btn btn-lg btn-outline-primary" value="Submit">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

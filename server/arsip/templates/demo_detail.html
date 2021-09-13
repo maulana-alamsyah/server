@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<body>
+    <div class="container justify-content-center">
+
+        <div class="row" style="margin-top: 1em;">
+            <embed src="{{pdf_file}}#view=fit" type="application/pdf" width="100%", height="500px">
+        </div>
+
+        {% if info_file.read_staff.all != 0 %}
+        <div class="col" style="padding-top: 10px;">
+            Dibaca oleh:
+            {% for i in info_file.read_staff.all %}
+                <span class="badge bg-primary">
+                    {{i.username}}
+                </span>    
+            {% endfor %}
+        </div>
+            {% for i in info_file.read_staff.all %}
+                {% if i.username == users.username %}
+                    <button class="btn btn-primary ms-auto">Approve</button>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</body>
+
+
+
+{% endblock %}

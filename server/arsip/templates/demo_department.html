@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<body>
+    <div class="container justify-content-center">
+      
+
+      <div class="input-group mb-2 w-25 ms-auto" style="margin-top: 2em;">
+        <input type="text" class="form-control" placeholder="Pencarian" aria-label="filter" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Cari</button>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nama File</th>
+            <th scope="col">Pengirim</th>
+            <th scope="col">Jenis Berkas</th>
+            <th scope="col">Tipe Berkas</th>
+            <th scope="col">Status Terbaca</th>
+            <br>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in file %}
+          <tr>
+            <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
+            <td>{{ i.sender}} </td>
+            <td>{{ i.jenisBerkas}} </td>
+            <td>{{ i.typeBerkas}} </td>
+            <td>
+              {% for x in i.read_staff.all %}
+                {% if x.username != "none" %}
+                {{ x.username }}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</body>
+
+
+
+{% endblock %}

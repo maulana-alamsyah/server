@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <span class="badge bg-success">
+            Superusers
+        </span>   
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<body>
+    <div class="container mt-n22 px-6 p-3" style="background-color: blue;">
+        <div class="row" style="background-color: brown;">
+            <a>Here</a>
+        </div>
+    </div>
+ 
+</body>
+
+
+
+{% endblock %}
