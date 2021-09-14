@@ -55,6 +55,7 @@ class Supervisor():
         return s_list
 
 
+
 class QueryMaster:
 
     d_list = Department.objects.all()

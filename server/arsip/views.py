@@ -1,3 +1,4 @@
+from arsip.models import SuratKeluar
 from .supervisor import Supervisor, QueryMaster
 from django.shortcuts import redirect, render
 from django.http.response import JsonResponse
@@ -39,7 +40,7 @@ def demo_login(request):
                 users.save()
                 print(f'\t[demo-login] New cookie : {users.cookies}')
                 print(f'\t[demo-login] Set cookie : {users.cookies}')
-                ren.set_cookie('auth', users.state, max_age=5000)
+                ren.set_cookie('auth', users.cookies, max_age=5000)
                 return ren
             else:
                 ren = redirect(f'/demo/{users.department.all()[0].url}')
@@ -47,7 +48,7 @@ def demo_login(request):
                 users.save()
                 print(f'\t[demo-login] New cookie : {users.cookies}')
                 print(f'\t[demo-login] Set cookie : {users.cookies}')
-                ren.set_cookie('auth', users.state, max_age=5000)
+                ren.set_cookie('auth', users.cookies, max_age=5000)
                 return ren
         else:
             print(f'\t[demo-login] {users.cookies}')
@@ -63,33 +64,20 @@ def demo_department(request, department):
 
     if (request.method=='GET'):
         try:
-            print("\t[demo-department] Get cookies : ", request.COOKIES['auth'])
+            #Get user cookie first
             status, users = supervisor.authState(request.COOKIES['auth'])
-            print(f'\t[demo-department] - {status} ')
         except:
             return redirect('/demo-login')
         # got user data
         if (status==True):
-            role = users.role
-            departments = supervisor.getDepartment(department)
-            # Registered Department verif
-            if users.member_of.count() > 1:
-                for i in users.member_of.all():
-                    if (i.link_dir==department):
-                        berkasMasuk = departments.berkasmasuk_set.filter(upload_for=role)
-                        validator = True
-                if validator==False:
-                    return JsonResponse({'status': 'Access Denied!'})
-            else:
-                if users.member_of.all()[0].link_dir == department:
-                    berkasMasuk = departments.berkasmasuk_set.filter(upload_for=role)
-                else:
-                    print("HERE")
-                    return JsonResponse({'status': 'Access Denied!'})
-            return render(request, 'demo_department.html', context={
-                'file':berkasMasuk,
-                'd_obj': departments })
-                
+            divisi = users.divisi
+            suratMasuk = users.suratmasuk_set.all()
+            suratKeluar = users.suratkeluar_set.all()
+            return redirect(request, 'demo_divisi.html', context={
+                'sm_list' : suratMasuk,
+                'sk_list': suratKeluar
+            })
+
         else:
             return redirect('/demo-login')
  
