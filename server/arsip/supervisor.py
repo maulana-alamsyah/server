@@ -46,12 +46,12 @@ class Supervisor():
         d_obj = Department.objects.all()
         return d_obj
 
-    def getAllSuratMasuk(self, department, divisi):
-        s_list = SuratMasuk.objects.filter(department=department, divisi=divisi)
+    def getAllSuratMasuk(self, department):
+        s_list = SuratMasuk.objects.get(department=department)
         return s_list
 
-    def getAllSuratKeluar(self, department, divisi):
-        s_list = SuratKeluar.objects.filter(department=department, divisi=divisi)
+    def getAllSuratKeluar(self, department):
+        s_list = SuratKeluar.objects.filter(department=department)
         return s_list
 
 

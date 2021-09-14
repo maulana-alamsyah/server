@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 import time,random, string
 from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_sameorigin
 from django.utils import timezone
+from .models import *
 
 supervisor = Supervisor()
 
@@ -19,9 +20,9 @@ def demo_login(request):
             return render(request, 'demo_login.html')
         if (status==True):
             if (users.department.count() > 1):
-                return redirect(f'/demo/{users.department.all()[0].url}')
+                return redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
             else:
-                return redirect(f'/demo/{users.department.all()[0].url}')
+                return redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
         else:
             return render(request, 'demo_login.html')
     if request.method == 'POST':
@@ -35,7 +36,7 @@ def demo_login(request):
             return redirect('/demo-login')
         if (status==True):
             if (users.department.count() > 1):
-                ren = redirect(f'/demo/{users.department.all()[0].url}')
+                ren = redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
                 users.cookies = rand()
                 users.save()
                 print(f'\t[demo-login] New cookie : {users.cookies}')
@@ -43,7 +44,7 @@ def demo_login(request):
                 ren.set_cookie('auth', users.cookies, max_age=5000)
                 return ren
             else:
-                ren = redirect(f'/demo/{users.department.all()[0].url}')
+                ren = redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
                 users.cookies = rand()
                 users.save()
                 print(f'\t[demo-login] New cookie : {users.cookies}')
@@ -60,7 +61,7 @@ def demo_register(request):
     else:
         return render(request, 'demo_register.html')
 
-def demo_department(request, department):
+def demo_divisi(request, de, di):
 
     if (request.method=='GET'):
         try:
@@ -70,20 +71,10 @@ def demo_department(request, department):
             return redirect('/demo-login')
         # got user data
         if (status==True):
-
-            divisi_list = users.divisi.all()
-            dep_obj = divisi_list[0].department
-            sm_list = dep_obj.suratmasuk_set.get(upload_for=users)
-            sk_list = dep_obj.suratkeluar_set.get(upload_for=users)
-
-            print(divisi_list[0].department_set.all())
-
-            ## List semua surat masuk dan surat keluar dalam divisi tsbt
-            return redirect(request, 'demo_divisi.html', context={
-                'sm_list' : sm_list,
-                'sk_list': sk_list
-            })
-
+            d_obj = users.department.all()[0]
+            suratMasuk = SuratMasuk.objects.filter(department=d_obj)
+            print(suratMasuk)
+            return render(request, 'demo_divisi.html', context={'suratMasuk': suratMasuk})
         else:
             return redirect('/demo-login')
  

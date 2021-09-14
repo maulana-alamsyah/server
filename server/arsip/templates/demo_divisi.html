@@ -121,26 +121,33 @@
               <th scope="col">Deskripsi</th>
               <th scope="col">Jenis Berkas</th>
               <th scope="col">Tipe Berkas</th>
-              <th scope="col">Status Terbaca</th>
               <br>
             </tr>
           </thead>
           <tbody>
-            {% for i in sm_list %}
+          
+            {% for i in suratMasuk %}
+            
+            {% if i.typeBerkas == 'SP' %}
+            <tr class="bg-danger">
+              <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
+              <td>{{ i.sender}} </td>
+              <td>{{ i.description }}</td>
+              <td>{{ i.jenisBerkas}} </td>
+              <td> {{ i.get_typeBerkas_display }} </td>
+            </tr>
+            {% else %}
+            
             <tr>
               <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
               <td>{{ i.sender}} </td>
+              <td>{{ i.description }}</td>
               <td>{{ i.jenisBerkas}} </td>
-              <td>{{ i.typeBerkas}} </td>
-              <td>
-                {% for x in i.read_staff.all %}
-                  {% if x.username != "none" %}
-                  {{ x.username }}
-                  {% endif %}
-                {% endfor %}
-              </td>
+              <td> {{ i.get_typeBerkas_display }} </td>
             </tr>
+            {% endif %}
             {% endfor %}
+
           </tbody>
         </table>
       </div>
@@ -159,21 +166,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for i in sk_list %}
-              <tr>
-                <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
-                <td>{{ i.sender}} </td>
-                <td>{{ i.jenisBerkas}} </td>
-                <td>{{ i.typeBerkas}} </td>
-                <td>
-                  {% for x in i.read_staff.all %}
-                    {% if x.username != "none" %}
-                    {{ x.username }}
-                    {% endif %}
-                  {% endfor %}
-                </td>
-              </tr>
-              {% endfor %}
+           
             </tbody>
           </table>
       </div>

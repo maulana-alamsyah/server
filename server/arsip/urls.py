@@ -10,8 +10,7 @@ urlpatterns = [
     # general purpose
     path('demo-login/', demo_login),
     path('demo-register/', demo_register),
-    path('demo/<str:department>/', demo_department),
-    path('demo/<str:department>/<str:divisi>/', demo_detail),
+    path('demo/<str:de>/<str:di>/', demo_divisi, name='divisi'),
     path('demo-upload/', demo_upload),
     path('logout/', logout, name='logout')
 ]

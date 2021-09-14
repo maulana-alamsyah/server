@@ -73,7 +73,7 @@ class SuratMasuk(models.Model):
     file = models.ManyToManyField(File)
     fileName = models.CharField(max_length=120, default=file.name)
     jenisBerkas = models.ForeignKey(JenisBerkas, on_delete=models.CASCADE)
-    typeBerkas = models.CharField(choices=TYPE_BERKAS, max_length=10,default='B')
+    typeBerkas = models.CharField(choices=TYPE_BERKAS, max_length=10, default='B')
     # general purpose
     department = models.ManyToManyField(Department)
     upload_for = models.ManyToManyField(Pengguna, related_name='target')
