@@ -1,11 +1,11 @@
 import os
-from .models import Departemen, Pengguna, BerkasMasuk
+from .models import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Supervisor():
 
-    d_list = Departemen.objects.all()
+    d_list = Department.objects.all()
 
     def __init__(self):
         pass
@@ -39,13 +39,12 @@ class Supervisor():
 
 
     def getDepartment(self, link_dir):
-        d_obj = Departemen.objects.get(link_dir=link_dir)
+        d_obj = Department.objects.get(link_dir=link_dir)
         return d_obj
-
 
 class QueryMaster:
 
-    d_list = Departemen.objects.all()
+    d_list = Department.objects.all()
     p_list = Pengguna.objects.all()
     
     def listDepartement(self):
@@ -53,7 +52,7 @@ class QueryMaster:
 
     def allFileAt(self, department, upload_for='EM'):
         try:
-            d_list = Departemen.objects.get(departementName=department)
+            d_list = Department.objects.get(departementName=department)
             print(department)
             depart = self.d_list.get(departementName=department)
             print(d_list)
@@ -64,7 +63,7 @@ class QueryMaster:
     def createBerkasMasuk(self, 
     level, access, upload_to, upload_for, upload_by, fileID, files, filename, address_sender, sender):
         try:
-            obj = BerkasMasuk(
+            obj = SuratMasuk(
                 access = access,
                 upload_to_department=upload_to,
                 upload_for=upload_for,
