@@ -7,6 +7,7 @@ urlpatterns = [
     path('super/', root),
     # general purpose
     path('demo-login/', demo_login),
+    path('demo-register/', demo_register),
     path('demo/<str:department>/', demo_department),
     path('demo/<str:department>/<str:detail>/', demo_detail),
     path('demo-upload/', demo_upload),

@@ -55,6 +55,12 @@ def demo_login(request):
             print(f'\t[demo-login] {users.state}')
             return redirect('/demo-login')  
 
+def demo_register(request):
+    if(request.method=='GET'):
+        return render(request, 'demo_register.html')
+    else:
+        return render(request, 'demo_register.html')
+
 def demo_department(request, department):
     if (request.method=='GET'):
         try:
