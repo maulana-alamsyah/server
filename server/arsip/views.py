@@ -17,42 +17,40 @@ def demo_login(request):
         except:
             return render(request, 'demo_login.html')
         if (status==True):
-            if (users.member_of.count() > 1):
-                return redirect(f'/demo/{users.member_of.all()[0].link_dir}')
+            if (users.department.count() > 1):
+                return redirect(f'/demo/{users.department.all()[0].url}')
             else:
-                return redirect(f'/demo/{users.member_of.all()[0].link_dir}')
+                return redirect(f'/demo/{users.department.all()[0].url}')
         else:
             return render(request, 'demo_login.html')
     if request.method == 'POST':
-        print('POST')
         try:
             username = request.POST['username']
             password = request.POST['password1']
-            print(f'{username}--{password}')
             status, users = supervisor.authLogin(username, password)
             print(f'\t[demo-login] {status} - POST and get cookie {users}')
         except:
             print(f'\t[demo-login] {status} - {users}')
             return redirect('/demo-login')
         if (status==True):
-            if (users.member_of.count() > 1):
-                ren = redirect(f'/demo/{users.member_of.all()[0].link_dir}')
-                users.state = rand()
+            if (users.department.count() > 1):
+                ren = redirect(f'/demo/{users.department.all()[0].url}')
+                users.cookies = rand()
                 users.save()
-                print(f'\t[demo-login] New cookie : {users.state}')
-                print(f'\t[demo-login] Set cookie : {users.state}')
+                print(f'\t[demo-login] New cookie : {users.cookies}')
+                print(f'\t[demo-login] Set cookie : {users.cookies}')
                 ren.set_cookie('auth', users.state, max_age=5000)
                 return ren
             else:
-                ren = redirect(f'/demo/{users.member_of.all()[0].link_dir}')
-                users.state = rand()
+                ren = redirect(f'/demo/{users.department.all()[0].url}')
+                users.cookies = rand()
                 users.save()
-                print(f'\t[demo-login] New cookie : {users.state}')
-                print(f'\t[demo-login] Set cookie : {users.state}')
+                print(f'\t[demo-login] New cookie : {users.cookies}')
+                print(f'\t[demo-login] Set cookie : {users.cookies}')
                 ren.set_cookie('auth', users.state, max_age=5000)
                 return ren
         else:
-            print(f'\t[demo-login] {users.state}')
+            print(f'\t[demo-login] {users.cookies}')
             return redirect('/demo-login')  
 
 def demo_register(request):
@@ -62,6 +60,7 @@ def demo_register(request):
         return render(request, 'demo_register.html')
 
 def demo_department(request, department):
+
     if (request.method=='GET'):
         try:
             print("\t[demo-department] Get cookies : ", request.COOKIES['auth'])
@@ -90,6 +89,7 @@ def demo_department(request, department):
             return render(request, 'demo_department.html', context={
                 'file':berkasMasuk,
                 'd_obj': departments })
+                
         else:
             return redirect('/demo-login')
  

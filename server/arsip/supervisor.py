@@ -20,7 +20,7 @@ class Supervisor():
 
     def authState(self, reqState):
         try:
-            user = Pengguna.objects.get(state=reqState)
+            user = Pengguna.objects.get(cookies=reqState)
             return (True, user)
         except:
             return (False, None)
