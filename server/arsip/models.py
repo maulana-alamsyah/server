@@ -85,7 +85,7 @@ class SuratMasuk(models.Model):
     ## Berkas workflow
     reader = models.ManyToManyField(Pengguna, related_name='reader', blank=True)
     signature = models.ManyToManyField(Pengguna, related_name='signature', blank=True)
-    approve_by = models.ForeignKey(Pengguna, related_name='approved', on_delete=models.CASCADE,blank=True)
+    approve_by = models.ManyToManyField(Pengguna, related_name='approved', blank=True)
     # status active/inactive file
     status = models.BooleanField(default=True)
 

@@ -70,12 +70,18 @@ def demo_department(request, department):
             return redirect('/demo-login')
         # got user data
         if (status==True):
-            divisi = users.divisi
-            suratMasuk = users.suratmasuk_set.all()
-            suratKeluar = users.suratkeluar_set.all()
+
+            divisi_list = users.divisi.all()
+            dep_obj = divisi_list[0].department
+            sm_list = dep_obj.suratmasuk_set.get(upload_for=users)
+            sk_list = dep_obj.suratkeluar_set.get(upload_for=users)
+
+            print(divisi_list[0].department_set.all())
+
+            ## List semua surat masuk dan surat keluar dalam divisi tsbt
             return redirect(request, 'demo_divisi.html', context={
-                'sm_list' : suratMasuk,
-                'sk_list': suratKeluar
+                'sm_list' : sm_list,
+                'sk_list': sk_list
             })
 
         else:
