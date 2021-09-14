@@ -72,9 +72,21 @@ def demo_divisi(request, de, di):
         # got user data
         if (status==True):
             d_obj = users.department.all()[0]
-            suratMasuk = SuratMasuk.objects.filter(department=d_obj)
-            print(suratMasuk)
-            return render(request, 'demo_divisi.html', context={'suratMasuk': suratMasuk})
+            sm_list = SuratMasuk.objects.filter(department=d_obj)
+            sk_list = SuratKeluar.objects.all()
+
+            # Pengecekan target user, apakah surat dirujukan kepada user tsb
+            suratMasuk = []
+            for s in sm_list:
+                for i in s.upload_for.all():
+                    if (i==users):
+                        suratMasuk.append(s)
+
+            return render(request, 'demo_divisi.html', context={
+                'user': users,
+                'suratMasuk': suratMasuk,
+                'suratKeluar': sk_list})
+
         else:
             return redirect('/demo-login')
  
@@ -148,7 +160,7 @@ def rootSuper(request):
                 'd_list': departments
             })
         except:
-            print('EROR SAAT MENGAMBIL DATA')
+            print('EROR SAAT MENGAMBIL DATA SUPER')
     return render(request, 'root.html', context={})
 
 def rootDepartment(request, department):
@@ -160,7 +172,7 @@ def rootDepartment(request, department):
                 'd_obj': d_obj
             })
         except:
-            print('EROR SAAT MENGAMBIL DATA')
+            return redirect('super_user/')
     return render(request, 'root.html', context={})
 
 # tampilkan surat masuk dan keluar dalam divisi tsb
@@ -168,12 +180,26 @@ def rootDivisi(request, department, divisi):
     if (request.method=='GET'):
         try:
             # GET COOKIE
-            sm_list = supervisor.getAllSuratMasuk(department, divisi)
-            sk_list = supervisor.getAllSuratKeluar(department, divisi)
+            sm_list = SuratMasuk.objects.all()
+            sk_list = SuratKeluar.objects.all()
             return render(request, 'root_division.html', context={
                 'sm_list': sm_list,
                 'sk_list': sk_list
             })
         except:
-            print('EROR SAAT MENGAMBIL DATA')
+            print('EROR SAAT MENGAMBIL DATA DIVISI')
     return render(request, 'root.html', context={})
+
+def rootUser(request):
+    if (request.method=='GET'):
+        try:
+            # GET COOKIE
+            users = Pengguna.objects.all()
+            print(users)
+            return render(request, 'root_users.html', context={
+                'users': users
+            })
+        except:
+            print('EROR SAAT MENGAMBIL DATA USER')
+    return render(request, 'root.html', context={})
+    

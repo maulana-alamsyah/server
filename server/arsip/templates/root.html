@@ -4,7 +4,7 @@
 <div id="app">
   <div class="main-wrapper">
     <!-- NAVBAR -->
-    <div class="navbar-bg"></div>
+    <div class="navbar-bg mr-auto"></div>
     <nav class="navbar navbar-expand-lg main-navbar">
       <!-- Search element -->
       <form class="form-inline mr-auto">
@@ -12,24 +12,6 @@
           <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
           <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
         </ul>
-        <div class="search-element">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-          <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-
-          <div class="search-backdrop"></div>
-            <div class="search-result">
-              <div class="search-header">
-                Riwayat Pencarian
-              </div>
-              <!-- LOOP HISTORY -->
-              <div class="search-item">
-                <a href="#">How to hack NASA using CSS</a>
-                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
-              </div>
-              <!-- LOOP HISTORY -->
-            </div>
-
-        </div>
       </form>
       <!-- Notif & profile -->
       <ul class="navbar-nav navbar-right">
@@ -90,12 +72,12 @@
 
         <!-- SIDEBAR -->
         <ul class="sidebar-menu">
-            <li class="menu-header">Dashboard</li>
+            <li class="menu-header">Data</li>
             <li class="nav-item dropdown active">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Data</span></a>
               <ul class="dropdown-menu">
-                <li class="active"><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-                <li><a class="nav-link" href="index.html">etc</a></li>
+                <li class="active"><a class="nav-link active" href="">Department</a></li>
+                <li><a class="nav-link" href="{% url 'super_user' %}">User</a></li>
               </ul>
             </li>
         </ul>
