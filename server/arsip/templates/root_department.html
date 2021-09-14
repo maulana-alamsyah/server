@@ -108,25 +108,29 @@
           <h1>Dashboard</h1>
         </div>
         <div class="row">
-          <!-- LOOP DEPARTMENT -->
-          {% for i in d_list %}
+          <!-- LOOP DIVISI -->
+
+          {% for i in d_obj.divisi_set.all %}
           <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             <a href="{{ i.url }}" class="card card-statistic-1" style="text-decoration: none;">
               <div class="card-icon bg-primary d-flex" style="height: 120px; width: 90%;">
                 <i class="far fa-user justify-content-center align-self-center pl-4" style="font-size: 100px;"></i>
               </div>
               <div class="card-wrap">
+
                 <div class="card-header">
-                  <h4 style="font-size: 20px; color: rgb(73, 73, 73);">{{ i.departementName }}</h4>
+                  <h4 style="font-size: 20px; color: rgb(73, 73, 73);">{{ i.divisiName }}</h4>
                 </div>
                 <div class="card-body" style="color: rgb(163, 163, 163);">
-                  {{i.divisi_set.all.count}}
+                  {{i.pengguna_set.all.count}}
                 </div>
               </div>
             </a>
           </div>
+
           {% endfor %}
-          <!--END LOOP DEPARTMENT-->
+
+          <!--END LOOP DIVISI-->
         </div>
       </section>
     </div>

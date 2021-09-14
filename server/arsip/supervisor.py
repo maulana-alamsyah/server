@@ -38,9 +38,22 @@ class Supervisor():
             return (False, None)
 
 
-    def getDepartment(self, link_dir):
-        d_obj = Department.objects.get(link_dir=link_dir)
+    def getDepartment(self, url):
+        d_obj = Department.objects.get(url=url)
         return d_obj
+
+    def getAllDepartment(self):
+        d_obj = Department.objects.all()
+        return d_obj
+
+    def getAllSuratMasuk(self, department, divisi):
+        s_list = SuratMasuk.objects.filter(department=department, divisi=divisi)
+        return s_list
+
+    def getAllSuratKeluar(self, department, divisi):
+        s_list = SuratKeluar.objects.filter(department=department, divisi=divisi)
+        return s_list
+
 
 class QueryMaster:
 

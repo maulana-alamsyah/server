@@ -5,3 +5,10 @@
 
 14-Sep [00.53]     Mengubah struktur database
                     - Migrate database
+
+14-Sep [12.37]     Rekonstruksi html root.html dan root_department.html
+                   Menambah root_division.html untuk menampilkan list surat masuk dan keluar pada
+                   divisi tsb.
+
+admin
+admin123

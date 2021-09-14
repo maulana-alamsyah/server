@@ -147,5 +147,48 @@ def logout(request):
     resp.delete_cookie('auth')
     return resp
 
-def root(request):
+
+##  _________________
+##  |               |
+##  | ROOT BACKEND  |
+##  |               |
+##  |_______________|
+
+def rootSuper(request):
+    if (request.method=='GET'):
+        try:
+            # GET COOKIE
+            departments = supervisor.getAllDepartment()
+            return render(request, 'root.html', context={
+                'd_list': departments
+            })
+        except:
+            print('EROR SAAT MENGAMBIL DATA')
+    return render(request, 'root.html', context={})
+
+def rootDepartment(request, department):
+    if (request.method=='GET'):
+        try:
+            # GET COOKIE
+            d_obj = supervisor.getDepartment(department)
+            return render(request, 'root_department.html', context={
+                'd_obj': d_obj
+            })
+        except:
+            print('EROR SAAT MENGAMBIL DATA')
+    return render(request, 'root.html', context={})
+
+# tampilkan surat masuk dan keluar dalam divisi tsb
+def rootDivisi(request, department, divisi):
+    if (request.method=='GET'):
+        try:
+            # GET COOKIE
+            sm_list = supervisor.getAllSuratMasuk(department, divisi)
+            sk_list = supervisor.getAllSuratKeluar(department, divisi)
+            return render(request, 'root_division.html', context={
+                'sm_list': sm_list,
+                'sk_list': sk_list
+            })
+        except:
+            print('EROR SAAT MENGAMBIL DATA')
     return render(request, 'root.html', context={})

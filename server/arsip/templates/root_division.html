@@ -1,0 +1,69 @@
+<div class="row">
+    
+    <!-- Surat masuk -->
+    <div class="col-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nama File</th>
+            <th scope="col">Pengirim</th>
+            <th scope="col">Deskripsi</th>
+            <th scope="col">Jenis Berkas</th>
+            <th scope="col">Tipe Berkas</th>
+            <th scope="col">Status Terbaca</th>
+            <br>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in sm_list %}
+          <tr>
+            <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
+            <td>{{ i.sender}} </td>
+            <td>{{ i.jenisBerkas}} </td>
+            <td>{{ i.typeBerkas}} </td>
+            <td>
+              {% for x in i.read_staff.all %}
+                {% if x.username != "none" %}
+                {{ x.username }}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+        
+    <!-- Surat Keluar -->
+    <div class="col-12">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nama File</th>
+              <th scope="col">Pengirim</th>
+              <th scope="col">Jenis Berkas</th>
+              <th scope="col">Tipe Berkas</th>
+              <th scope="col">Status Terbaca</th>
+              <br>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in sk_list %}
+            <tr>
+              <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
+              <td>{{ i.sender}} </td>
+              <td>{{ i.jenisBerkas}} </td>
+              <td>{{ i.typeBerkas}} </td>
+              <td>
+                {% for x in i.read_staff.all %}
+                  {% if x.username != "none" %}
+                  {{ x.username }}
+                  {% endif %}
+                {% endfor %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  </div>
