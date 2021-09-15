@@ -5,18 +5,30 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Supervisor():
 
-    d_list = Department.objects.all()
-
     def __init__(self):
         pass
 
     # Create 'MEDIA' directory, return false if already exist
-    def createDir(self, nameDir):
-        try:
-            os.makedirs(f'../media/{nameDir}')
-            return True
-        except:
-            return False
+    def authenticate(self, request):
+        ## Auth with cookie
+        if (request.method=='GET'):
+            try:
+                reqCookie = request.COOKIES['auth']
+                user = Pengguna.objects.get(cookies=reqCookie)
+                return (True, user)
+            except:
+                return (False, None)
+
+        ## auth with login
+        if (request.method=='POST'):
+            reqUsername = request.POST['username']
+            reqPassword = request.POST['password1']
+            try:
+                user = Pengguna.objects.get(username=reqUsername)
+                if (reqPassword==user.password):
+                    return (True, user)
+            except:
+                return (False, None)
 
     def authState(self, reqState):
         try:
@@ -37,7 +49,6 @@ class Supervisor():
         except:
             return (False, None)
 
-
     def getDepartment(self, url):
         d_obj = Department.objects.get(url=url)
         return d_obj
@@ -47,14 +58,21 @@ class Supervisor():
         return d_obj
 
     def getAllSuratMasuk(self, department):
-        s_list = SuratMasuk.objects.get(department=department)
+        s_list = SuratMasuk.objects.filter(department=department)
         return s_list
 
     def getAllSuratKeluar(self, department):
         s_list = SuratKeluar.objects.filter(department=department)
         return s_list
 
-
+    def getSuratMasukfor(self, user, department):
+        s_list = SuratMasuk.objects.filter(department=department)
+        suratMasuk = []
+        for s in s_list:
+            for i in s.upload_for.all():
+                if (i==user):
+                    suratMasuk.append(s)
+        return suratMasuk
 
 class QueryMaster:
 

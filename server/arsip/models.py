@@ -61,6 +61,12 @@ class Pengguna(models.Model):
     def __str__(self):
         return (f'{self.username}')
 
+    def get_department(self):
+        if (self.department.count()==1):
+            return self.department.all()[0]
+        else:
+            return self.department.all()[0]
+
 # Table file
 class File(models.Model):
     fileName = models.CharField(max_length=120)

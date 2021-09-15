@@ -10,7 +10,6 @@ urlpatterns = [
     path('super/users/', rootUser, name='super_user'),
     # general purpose
     path('demo-login/', demo_login),
-    path('demo-register/', demo_register),
     path('demo/<str:de>/<str:di>/', demo_divisi, name='divisi'),
     path('demo-upload/', demo_upload),
     path('logout/', logout, name='logout')

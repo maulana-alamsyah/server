@@ -75,7 +75,7 @@
           </thead>
           <tbody>
           
-            {% for i in suratMasuk %}
+            {% for i in sm_list %}
             
             {% if i.typeBerkas == 'SP' %}
             <tr class="bg-danger text-white">
@@ -115,7 +115,27 @@
               </tr>
             </thead>
             <tbody>
-           
+              {% for i in sk_list %}
+            
+              {% if i.typeBerkas == 'SP' %}
+              <tr class="bg-danger text-white">
+                <td><a href="{{i.fileName}}" style="color: whitesmoke;">{{ i.fileName }}</a></td>
+                <td>{{ i.sender}} </td>
+                <td>{{ i.description }}</td>
+                <td>{{ i.jenisBerkas}} </td>
+                <td> {{ i.get_typeBerkas_display }} </td>
+              </tr>
+              {% else %}
+              
+              <tr>
+                <td><a href="{{i.fileName}}">{{ i.fileName }}</a></td>
+                <td>{{ i.sender}} </td>
+                <td>{{ i.description }}</td>
+                <td>{{ i.jenisBerkas}} </td>
+                <td> {{ i.get_typeBerkas_display }} </td>
+              </tr>
+              {% endif %}
+              {% endfor %}
             </tbody>
           </table>
       </div>

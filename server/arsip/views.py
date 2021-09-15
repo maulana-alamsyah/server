@@ -13,82 +13,35 @@ def rand():
     return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(32))
 
 def demo_login(request):
-    if (request.method=='GET'):
+    status, users = supervisor.authenticate(request)
+    # status true success
+    if (status):
         try:
-            status, users = supervisor.authState(request.COOKIES['auth'])
+            response = redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
+            users.cookies = rand()
+            users.save()
+            response.set_cookie('auth', users.cookies, max_age=5000)
+            return response
         except:
-            return render(request, 'demo_login.html')
-        if (status==True):
-            if (users.department.count() > 1):
-                return redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
-            else:
-                return redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
-        else:
-            return render(request, 'demo_login.html')
-    if request.method == 'POST':
-        try:
-            username = request.POST['username']
-            password = request.POST['password1']
-            status, users = supervisor.authLogin(username, password)
-            print(f'\t[demo-login] {status} - POST and get cookie {users}')
-        except:
-            print(f'\t[demo-login] {status} - {users}')
-            return redirect('/demo-login')
-        if (status==True):
-            if (users.department.count() > 1):
-                ren = redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
-                users.cookies = rand()
-                users.save()
-                print(f'\t[demo-login] New cookie : {users.cookies}')
-                print(f'\t[demo-login] Set cookie : {users.cookies}')
-                ren.set_cookie('auth', users.cookies, max_age=5000)
-                return ren
-            else:
-                ren = redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
-                users.cookies = rand()
-                users.save()
-                print(f'\t[demo-login] New cookie : {users.cookies}')
-                print(f'\t[demo-login] Set cookie : {users.cookies}')
-                ren.set_cookie('auth', users.cookies, max_age=5000)
-                return ren
-        else:
-            print(f'\t[demo-login] {users.cookies}')
-            return redirect('/demo-login')  
-
-def demo_register(request):
-    if(request.method=='GET'):
-        return render(request, 'demo_register.html')
+            return JsonResponse({
+                'status':500,
+                'info': 'Error when try redirect!'})
     else:
-        return render(request, 'demo_register.html')
+        return render(request, 'demo_login.html')
 
 def demo_divisi(request, de, di):
+    status, user = supervisor.authenticate(request)
+    if (status):
+        user_department = user.get_department()
+        sm_list = supervisor.getSuratMasukfor(user, user_department)
+        sk_list = supervisor.getAllSuratKeluar(user_department)
 
-    if (request.method=='GET'):
-        try:
-            #Get user cookie first
-            status, users = supervisor.authState(request.COOKIES['auth'])
-        except:
-            return redirect('/demo-login')
-        # got user data
-        if (status==True):
-            d_obj = users.department.all()[0]
-            sm_list = SuratMasuk.objects.filter(department=d_obj)
-            sk_list = SuratKeluar.objects.all()
-
-            # Pengecekan target user, apakah surat dirujukan kepada user tsb
-            suratMasuk = []
-            for s in sm_list:
-                for i in s.upload_for.all():
-                    if (i==users):
-                        suratMasuk.append(s)
-
-            return render(request, 'demo_divisi.html', context={
-                'user': users,
-                'suratMasuk': suratMasuk,
-                'suratKeluar': sk_list})
-
-        else:
-            return redirect('/demo-login')
+        return render(request, 'demo_divisi.html', context={
+            'user': user,
+            'sm_list': sm_list,
+            'sk_list': sk_list})
+    else:
+        return redirect('/demo-login')
  
 @xframe_options_exempt
 def demo_detail(request, department, detail):
@@ -108,6 +61,11 @@ def demo_detail(request, department, detail):
             'info_file': berkasMasuk,
             'users': users
         })
+
+def logout(request):
+    resp = redirect('/demo-login')
+    resp.delete_cookie('auth')
+    return resp
 
 def demo_upload(request):
     spvsr = Supervisor()
@@ -139,10 +97,9 @@ def demo_upload(request):
     else:
         return render(request, 'login.html')
 
-def logout(request):
-    resp = redirect('/demo-login')
-    resp.delete_cookie('auth')
-    return resp
+
+
+
 
 
 ##  _________________
@@ -202,4 +159,3 @@ def rootUser(request):
         except:
             print('EROR SAAT MENGAMBIL DATA USER')
     return render(request, 'root.html', context={})
-    
