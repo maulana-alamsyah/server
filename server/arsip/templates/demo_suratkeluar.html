@@ -21,15 +21,15 @@
         
           
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-          <div class="d-sm-none d-lg-inline-block">{{ user.username }}</div>
+          <div class="d-sm-none d-lg-inline-block">{{ user.password }}</div>
           <div class="dropdown-menu dropdown-menu-right">
-            <a href="features-settings.html" class="dropdown-item has-icon">
+            <a href="/data/{{department}}/{{divisi}}/suratmasuk" class="dropdown-item has-icon">
               Surat Masuk
             </a>
-            <a href="features-settings.html" class="dropdown-item has-icon">
+            <a href="/data/{{department}}/{{divisi}}/suratkeluar" class="dropdown-item has-icon">
               Surat Keluar
             </a>
-            <a href="features-settings.html" class="dropdown-item has-icon">
+            <a href="" class="dropdown-item has-icon">
               Pengaturan Akun
             </a>
             <div class="dropdown-divider"></div>
@@ -48,38 +48,46 @@
           <h1>Dashboard</h1>
         </div>
         <div class="row">
-          <!-- LOOP BERKAS -->
-          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <a href="suratmasuk/" class="card card-statistic-1" style="text-decoration: none;">
-              <div class="card-icon bg-primary d-flex" style="height: 120px; width: 90%;">
-                <i class="far fa-square justify-content-center align-self-center pl-4" style="font-size: 100px;"></i>
-              </div>
-              <div class="card-wrap">
-                <div class="card-header">
-                  <h4 style="font-size: 20px; color: rgb(73, 73, 73);">Surat Masuk</h4>
-                </div>
-                <div class="card-body" style="color: rgb(163, 163, 163);font-size: 15px;">
-                  Total : {{ sm_list.count }}
-                </div>
-              </div>
-            </a>
-          </div>
-  
-          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <a href="suratkeluar/" class="card card-statistic-1" style="text-decoration: none;">
-              <div class="card-icon bg-success d-flex" style="height: 120px; width: 90%;">
-                <i class="far fa-circle justify-content-center align-self-center pl-4" style="font-size: 100px;"></i>
-              </div>
-              <div class="card-wrap">
-                <div class="card-header">
-                  <h4 style="font-size: 20px; color: rgb(73, 73, 73);">Surat Keluar</h4>
-                </div>
-                <div class="card-body" style="color: rgb(163, 163, 163); font-size: 15px;">
-                  Total : {{ sk_list.count }}
-                </div>
-              </div>
-            </a>
-          </div>
+
+    
+      <!-- Surat Keluar -->
+      <div class="col-12">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nama File</th>
+              <th scope="col">Pengirim</th>
+              <th scope="col">Jenis Berkas</th>
+              <th scope="col">Tipe Berkas</th>
+              <th scope="col">Status Terbaca</th>
+              <br>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in sk_list %}
+          
+            {% if i.typeBerkas == 'SP' %}
+            <tr class="bg-danger text-white">
+              <td><a href="{{i.url}}" style="color: whitesmoke;">{{ i.fileName }}</a></td>
+              <td>{{ i.sender}} </td>
+              <td>{{ i.description }}</td>
+              <td>{{ i.jenisBerkas}} </td>
+              <td> {{ i.get_typeBerkas_display }} </td>
+            </tr>
+            {% else %}
+            
+            <tr>
+              <td><a href="{{i.url}}">{{ i.fileName }}</a></td>
+              <td>{{ i.sender}} </td>
+              <td>{{ i.description }}</td>
+              <td>{{ i.jenisBerkas}} </td>
+              <td> {{ i.get_typeBerkas_display }} </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
 
         </div>
         </section>

@@ -65,14 +65,25 @@ class Supervisor():
         s_list = SuratKeluar.objects.filter(department=department)
         return s_list
 
-    def getSuratMasukfor(self, user, department):
-        s_list = SuratMasuk.objects.filter(department=department)
-        suratMasuk = []
-        for s in s_list:
-            for i in s.upload_for.all():
-                if (i==user):
-                    suratMasuk.append(s)
-        return suratMasuk
+    def getSuratMasukfor(self, user):
+        s_list = SuratMasuk.objects.filter(upload_for=user)
+        return s_list
+
+    def getSuratMasukNotifications(self, user):
+        ## cara 2
+        suratMasukUnreaded = []
+        suratMasuk = SuratMasuk.objects.filter(upload_for=user)
+        for i in suratMasuk:
+            try:
+                i.reader.get(username=user)
+            except:
+                suratMasukUnreaded.append(i)
+
+        return suratMasukUnreaded
+
+    def getSuratMasuk(self, url):
+        fl = File.objects.get(fileName=url)
+        return fl
 
 class QueryMaster:
 

@@ -17,7 +17,7 @@ def demo_login(request):
     # status true success
     if (status):
         try:
-            response = redirect(f'/demo/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
+            response = redirect(f'/data/{users.department.all()[0].url}/{users.divisi.all()[0].url}')
             users.cookies = rand()
             users.save()
             response.set_cookie('auth', users.cookies, max_age=5000)
@@ -33,16 +33,84 @@ def demo_divisi(request, de, di):
     status, user = supervisor.authenticate(request)
     if (status):
         user_department = user.get_department()
-        sm_list = supervisor.getSuratMasukfor(user, user_department)
+        sm_list = supervisor.getSuratMasukfor(user)
         sk_list = supervisor.getAllSuratKeluar(user_department)
+        ## Notification
+        notification_list = supervisor.getSuratMasukNotifications(user)
 
         return render(request, 'demo_divisi.html', context={
             'user': user,
+            'notifications_list': notification_list,
             'sm_list': sm_list,
             'sk_list': sk_list})
     else:
         return redirect('/demo-login')
  
+#list semua surat masuk
+def demo_suratmasuk(request, de, di):
+    status, user = supervisor.authenticate(request)
+    if (status):
+        user_department = user.get_department()
+        sm_list = supervisor.getSuratMasukfor(user)
+        ## Notification
+        notification_list = supervisor.getSuratMasukNotifications(user)
+
+        return render(request, 'demo_suratmasuk.html', context={
+            'user': user,
+            'department': user_department.url,
+            'divisi': user.divisi.all()[0].url,
+            'notifications_list': notification_list,
+            'sm_list': sm_list,})
+    else:
+        return redirect('/demo-login')
+
+def demo_suratmasukdetail(request, de, di, filename):
+    status, user = supervisor.authenticate(request)
+    if (status):
+        user_department = user.get_department()
+        sm_list = supervisor.getSuratMasukfor(user)
+        ## Notification
+        notification_list = supervisor.getSuratMasukNotifications(user)
+        file = supervisor.getSuratMasuk(filename)
+
+        return render(request, 'demo_suratmasukdetail.html', context={
+            'user' : user,
+            'notifications_list': notification_list,
+            'file': file
+        })
+    else:
+        return redirect('/demo-login')
+
+#list semua surat keluar
+def demo_suratkeluar(request, de, di):
+    status, user = supervisor.authenticate(request)
+    if (status):
+        user_department = user.get_department()
+        sk_list = supervisor.getAllSuratKeluar(user_department)
+        ## Notification
+        notification_list = supervisor.getSuratMasukNotifications(user)
+
+        return render(request, 'demo_suratkeluar.html', context={
+            'user': user,
+            'department': user_department.url,
+            'divisi': user.divisi.all()[0].url,
+            'notifications_list': notification_list,
+            'sk_list': sk_list})
+    else:
+        return redirect('/demo-login')
+
+def demo_suratkeluardetail(request, de, di, filename):
+    status, user = supervisor.authenticate(request)
+    if (status):
+        user_department = user.get_department()
+        sk_list = supervisor.getAllSuratKeluar(user_department)
+        ## Notification
+        notification_list = supervisor.getSuratMasukNotifications(user)
+
+        return JsonResponse({'status':filename})
+    else:
+        return redirect('/demo-login')
+
 @xframe_options_exempt
 def demo_detail(request, department, detail):
     if (request.method=='GET'):
@@ -131,7 +199,6 @@ def rootDepartment(request, department):
         except:
             return redirect('super_user/')
     return render(request, 'root.html', context={})
-
 # tampilkan surat masuk dan keluar dalam divisi tsb
 def rootDivisi(request, department, divisi):
     if (request.method=='GET'):

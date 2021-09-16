@@ -77,7 +77,7 @@ class File(models.Model):
 class SuratMasuk(models.Model):
     TYPE_BERKAS = [('B', 'Biasa'), ('P', 'Penting'), ('SP', 'Sangat Penting')]
     file = models.ManyToManyField(File)
-    fileName = models.CharField(max_length=120, default=file.name)
+    fileName = models.CharField(max_length=40, default=file.name)
     jenisBerkas = models.ForeignKey(JenisBerkas, on_delete=models.CASCADE)
     typeBerkas = models.CharField(choices=TYPE_BERKAS, max_length=10, default='B')
     # general purpose
@@ -88,6 +88,7 @@ class SuratMasuk(models.Model):
     description = models.CharField(max_length=60)
     upload_by = models.ForeignKey(Pengguna, related_name='uploaded', on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
+    url = models.CharField(null=True, max_length=40)
     ## Berkas workflow
     reader = models.ManyToManyField(Pengguna, related_name='reader', blank=True)
     signature = models.ManyToManyField(Pengguna, related_name='signature', blank=True)
@@ -119,6 +120,7 @@ class SuratKeluar(models.Model):
     description = models.CharField(max_length=60)
     upload = models.ForeignKey(Pengguna, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
+    url = models.CharField(null=True, max_length=40)
     # status active/inactive file
     status = models.BooleanField(default=True)
 
