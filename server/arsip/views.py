@@ -64,6 +64,7 @@ def demo_suratmasuk(request, de, di):
     else:
         return redirect('/demo-login')
 
+@xframe_options_exempt
 def demo_suratmasukdetail(request, de, di, filename):
     status, user = supervisor.authenticate(request)
     if (status):
@@ -72,7 +73,7 @@ def demo_suratmasukdetail(request, de, di, filename):
         ## Notification
         notification_list = supervisor.getSuratMasukNotifications(user)
         file = supervisor.getSuratMasuk(filename)
-
+        print(file.file)
         return render(request, 'demo_suratmasukdetail.html', context={
             'user' : user,
             'notifications_list': notification_list,

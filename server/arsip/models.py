@@ -73,6 +73,9 @@ class File(models.Model):
     file = models.FileField(upload_to='', null=False)
     status = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.fileName
+
 # Tabel Berkas Masuk
 class SuratMasuk(models.Model):
     TYPE_BERKAS = [('B', 'Biasa'), ('P', 'Penting'), ('SP', 'Sangat Penting')]
