@@ -120,6 +120,7 @@
                   <th scope="col">Deskripsi</th>
                   <th scope="col">Jenis Berkas</th>
                   <th scope="col">Tipe Berkas</th>
+                  <th scope="col">Config</th>
                   <br>
                 </tr>
               </thead>
@@ -131,6 +132,14 @@
                   <td>{{ i.description}} </td>
                   <td>{{ i.jenisBerkas}} </td>
                   <td>{{ i.get_typeBerkas_display }} </td>
+                  <td>
+                    <div class="row">
+                    <form method="/delete/">
+                       <input type="hidden" value="{{i.filename}}"name="delete-id">
+                       <input type="Submit">Delete</button>
+                    </form>
+                    </div>
+                  </td>
                   <td></td>
                 </tr>
                 {% endfor %}
@@ -148,6 +157,7 @@
                     <th scope="col">Jenis Berkas</th>
                     <th scope="col">Tipe Berkas</th>
                     <th scope="col">Status Terbaca</th>
+                    <th scope="col">Config</th>
                     <br>
                   </tr>
                 </thead>
@@ -160,7 +170,15 @@
                     <td>{{ i.jenisBerkas}} </td>
                     <td>{{ i.get_typeBerkas_display }} </td>
                     <td>status</td>
-                  </tr>
+                    <td>
+                      <div class="row">
+                        <form method="/delete/">
+                          <input type="hidden" value="{{i.filename}}"name="delete-id">
+                          <input type="Submit">Delete</button>
+                        </form>
+                      </div>
+                    </td>
+                    </tr>
                   {% endfor %}
                 </tbody>
               </table>
