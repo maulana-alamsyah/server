@@ -48,6 +48,15 @@
               {% endfor %}
             </div>
 
+            <div class="row">
+              <a>Diapprove oleh</a>
+              {% for i in approve_list %}
+              <span class="badge bg-success w-25">
+                {{ i.qr_code }}
+              </span>
+              {% endfor %}
+            </div>
+
             <div class="row" style="margin-top: 2em;">
               <form action="/approve/" method='POST'>
                 {% csrf_token %}
@@ -57,7 +66,6 @@
             </div>
         </div>
         </section>
-
 
 <!-- General JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

@@ -77,12 +77,12 @@ def demo_suratmasukdetail(request, de, di, filename):
         suratmasuk = file.suratmasuk_set.all()[0]
         approve_by = suratmasuk.approve_by.all()
         suratmasuk = suratmasuk.reader.all()
-        print(approve_by)
         return render(request, 'demo_suratmasukdetail.html', context={
             'user' : user,
             'notifications_list': notification_list,
             'suratmasuk': suratmasuk,
-            'file': file
+            'file': file,
+            'approve_list': approve_by
         })
     else:
         return redirect('/demo-login')
