@@ -776,27 +776,17 @@ select.form-control:not([size]):not([multiple]) {
     padding-bottom: 0; }
   .card.card-statistic-1, .card.card-statistic-2 {
     display: inline-block;
-    width: 100%; }
+    width: 100%;
+  }
   .card.card-statistic-1 .card-icon, .card.card-statistic-2 .card-icon {
-    width: 80px;
-    height: 80px;
+    width: 800px;
+    height: 800px;
     margin: 10px;
-    max-width: 80px;
     border-radius: 3px;
     line-height: 94px;
     text-align: center;
     float: left;
     margin-right: 15px; }
-    .card.card-statistic-1 .card-icon-asd, .card.card-statistic-2 .card-icon-asd {
-      width: 80px;
-      height: 80px;
-      margin: 10px;
-      max-width: 50px;
-      border-radius: 3px;
-      line-height: 94px;
-      text-align: center;
-      float: left;
-      margin-right: 15px; }
     .card.card-statistic-1 .card-icon .ion, .card.card-statistic-1 .card-icon .fas, .card.card-statistic-1 .card-icon .far, .card.card-statistic-1 .card-icon .fab, .card.card-statistic-1 .card-icon .fal, .card.card-statistic-2 .card-icon .ion, .card.card-statistic-2 .card-icon .fas, .card.card-statistic-2 .card-icon .far, .card.card-statistic-2 .card-icon .fab, .card.card-statistic-2 .card-icon .fal {
       font-size: 22px;
       color: #fff; }
@@ -1532,7 +1522,7 @@ h6 .badge {
 /* 3.18 Navbar */
 .navbar {
   height: 70px;
-  left: 250px;
+  left: 0px;
   right: 5px;
   position: absolute;
   z-index: 890;
@@ -2013,7 +2003,7 @@ a.bb {
 
 .login-brand {
   margin: 20px 0;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   font-size: 24px;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -2411,16 +2401,16 @@ pre {
       float: left;
       margin-top: 6px;
       margin-right: 15px; }
-    .section .section-title-keluar:before {
-      content: ' ';
-      border-radius: 5px;
-      height: 8px;
-      width: 30px;
-      background-color: #14ac86;
-      display: inline-block;
-      float: left;
-      margin-top: 6px;
-      margin-right: 15px; }
+      .section .section-title-keluar:before {
+        content: ' ';
+        border-radius: 5px;
+        height: 8px;
+        width: 30px;
+        background-color: #14ac86;
+        display: inline-block;
+        float: left;
+        margin-top: 6px;
+        margin-right: 15px; }
   .section .section-title + .section-lead {
     margin-top: -20px; }
   .section .section-lead {
@@ -2489,7 +2479,7 @@ pre {
   position: fixed;
   top: 0;
   height: 100%;
-  width: 250px;
+  width: 0px;
   background-color: #fff;
   z-index: 880;
   left: 0; }
@@ -2501,7 +2491,7 @@ pre {
   transition: all .5s; }
 
 body.sidebar-gone .main-sidebar {
-  left: -250px; }
+  left: 0px; }
 
 body.sidebar-mini .hide-sidebar-mini {
   display: none !important; }
@@ -2881,7 +2871,7 @@ body.layout-3 .main-footer {
         padding-left: 10px; }
 
 .main-content {
-  padding-left: 280px;
+  padding-left: 30px;
   padding-right: 30px;
   padding-top: 80px;
   width: 100%;

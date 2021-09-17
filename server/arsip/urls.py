@@ -21,6 +21,7 @@ urlpatterns = [
     path('data/<str:de>/<str:di>/suratkeluar/', demo_suratkeluar, name='suratkeluar'),
     path('data/<str:de>/<str:di>/suratkeluar/<str:filename>', demo_suratkeluardetail, name='suratkeluardetail'),
     
+    path('approve/', demo_approve),
     path('demo-upload/', demo_upload),
     path('logout/', logout, name='logout')
 ]

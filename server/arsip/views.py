@@ -73,10 +73,12 @@ def demo_suratmasukdetail(request, de, di, filename):
         ## Notification
         notification_list = supervisor.getSuratMasukNotifications(user)
         file = supervisor.getSuratMasuk(filename)
-        print(file.file)
+        suratmasuk = file.suratmasuk_set.all()[0]
+        suratmasuk = suratmasuk.reader.all()
         return render(request, 'demo_suratmasukdetail.html', context={
             'user' : user,
             'notifications_list': notification_list,
+            'suratmasuk': suratmasuk,
             'file': file
         })
     else:
@@ -166,7 +168,14 @@ def demo_upload(request):
     else:
         return render(request, 'login.html')
 
-
+def demo_approve(request):
+    fl = request.POST.get('namafile')
+    user = Pengguna.objects.get(cookies=request.COOKIES['auth'])
+    surat = SuratMasuk.objects.get(url=fl)
+    surat.approve_by.add(user)
+    return JsonResponse({
+        'file': fl
+    })
 
 
 

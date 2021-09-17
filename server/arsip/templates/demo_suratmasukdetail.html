@@ -50,6 +50,22 @@
                 <embed src="/media/{{file.file}}#view=fit" type="application/pdf" width="100%", height="500px">
             </div>
 
+            <div class="row">
+              <a>Dibaca oleh</a>
+              {% for i in suratmasuk %}
+              <span class="badge bg-primary w-25">
+                {{ i }}
+              </span>
+              {% endfor %}
+            </div>
+
+            <div class="row" style="margin-top: 2em;">
+              <form action="/approve/" method='POST'>
+                {% csrf_token %}
+                <input type="hidden" name="namafile" value="{{ file.fileName }}">
+                <button class="btn btn-primary" type="submit">Approve</button>
+              </form>
+            </div>
         </div>
         </section>
 
