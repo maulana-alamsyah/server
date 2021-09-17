@@ -25,9 +25,9 @@
   <div class="main-wrapper">
     <!-- NAVBAR -->
     <div class="navbar-bg"></div>
-    <nav class="navbar navbar-expand-lg main-navbar">
+    <nav class="navbar navbar-expand-lg main-navbar"  >
       <!-- Search element -->
-      <form class="form-inline mr-auto">
+      <form class="form-inline ms-auto">
         <ul class="navbar-nav mr-3">
           <!-- <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li> -->
           <!-- <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li> -->
@@ -37,11 +37,22 @@
       <ul class="navbar-nav navbar-right">
         <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
           <div class="dropdown-menu dropdown-list dropdown-menu-right">
-            <div class="dropdown-header">yaa</div>
+            <div class="dropdown-header">Pemberitahuan</div>
             <div class="dropdown-list-content dropdown-list-icons">
-              <div class="dropdown-item">
-                
-              </div>
+ 
+              {% for i in notifications_list %}
+              <a href="suratmasuk/{{i.url}}" class="dropdown-item">
+                <div class="dropdown-item-icon bg-info text-white">
+                  <i class="fas fa-bell"></i>
+                </div>
+                <div class="dropdown-item-desc">
+                    {{i.fileName}}
+                  <div class="time">{{ i.created_at }}</div>
+                </div>
+              </a>
+              {% endfor %}
+
+
             </div>
           </div>
         
@@ -49,13 +60,13 @@
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
           <div class="d-sm-inline-block d-lg-inline-block" style="font-size: 20px;">{{ user.username }}</div>
           <div class="dropdown-menu dropdown-menu-right">
-            <a href="features-settings.html" class="dropdown-item has-icon">
+            <a href="suratmasuk/" class="dropdown-item has-icon">
               Surat Masuk
             </a>
-            <a href="features-settings.html" class="dropdown-item has-icon">
+            <a href="/suratkeluar" class="dropdown-item has-icon">
               Surat Keluar
             </a>
-            <a href="features-settings.html" class="dropdown-item has-icon">
+            <a href="" class="dropdown-item has-icon">
               Pengaturan Akun
             </a>
             <div class="dropdown-divider"></div>

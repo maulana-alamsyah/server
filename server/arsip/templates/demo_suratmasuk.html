@@ -11,11 +11,20 @@
       <ul class="navbar-nav navbar-right">
         <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
           <div class="dropdown-menu dropdown-list dropdown-menu-right">
-            <div class="dropdown-header">yaa</div>
+            <div class="dropdown-header">Pemberitahuan</div>
             <div class="dropdown-list-content dropdown-list-icons">
-              <div class="dropdown-item">
-                
-              </div>
+              {% for i in notifications_list %}
+              <a href="{{i.url}}" class="dropdown-item">
+                <div class="dropdown-item-icon bg-info text-white">
+                  <i class="fas fa-bell"></i>
+                </div>
+                <div class="dropdown-item-desc">
+                    {{i.fileName}}
+                  <div class="time">{{ i.created_at }}</div>
+                </div>
+              </a>
+              {% endfor %}
+
             </div>
           </div>
         

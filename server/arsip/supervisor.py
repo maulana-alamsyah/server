@@ -81,7 +81,7 @@ class Supervisor():
 
         return suratMasukUnreaded
 
-    def getSuratMasuk(self, url):
+    def getFile(self, url):
         fl = File.objects.get(fileName=url)
         return fl
 

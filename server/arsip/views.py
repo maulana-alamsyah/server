@@ -37,7 +37,6 @@ def demo_divisi(request, de, di):
         sk_list = supervisor.getAllSuratKeluar(user_department)
         ## Notification
         notification_list = supervisor.getSuratMasukNotifications(user)
-
         return render(request, 'demo_divisi.html', context={
             'user': user,
             'notifications_list': notification_list,
@@ -69,12 +68,16 @@ def demo_suratmasukdetail(request, de, di, filename):
     status, user = supervisor.authenticate(request)
     if (status):
         user_department = user.get_department()
-        sm_list = supervisor.getSuratMasukfor(user)
         ## Notification
+        file = supervisor.getFile(filename)
+        suratmasuk = SuratMasuk.objects.get(url=filename)
+        suratmasuk.reader.add(user)
+        suratmasuk.save()
         notification_list = supervisor.getSuratMasukNotifications(user)
-        file = supervisor.getSuratMasuk(filename)
         suratmasuk = file.suratmasuk_set.all()[0]
+        approve_by = suratmasuk.approve_by.all()
         suratmasuk = suratmasuk.reader.all()
+        print(approve_by)
         return render(request, 'demo_suratmasukdetail.html', context={
             'user' : user,
             'notifications_list': notification_list,
