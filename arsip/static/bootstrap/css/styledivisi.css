@@ -779,10 +779,11 @@ select.form-control:not([size]):not([multiple]) {
     width: 100%;
   }
   .card.card-statistic-1 .card-icon, .card.card-statistic-2 .card-icon {
-    width: 800px;
-    height: 800px;
+    width: 80px;
+    height: 80px;
     margin: 10px;
     border-radius: 3px;
+    max-width: 80px;
     line-height: 94px;
     text-align: center;
     float: left;

@@ -10,7 +10,7 @@
       <!-- Notif & profile -->
       <ul class="navbar-nav navbar-right">        
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-          <div class="d-sm-none d-lg-inline-block">{{ user.firstName }} {{ user.lastName }}</div>
+          <div class="d-sm-none d-lg-inline-block" style="font-size: 20px;">{{ user.firstName }} {{ user.lastName }}</div>
           <div class="dropdown-menu dropdown-menu-right">
             <a href="/homepage/suratmasuk/" class="dropdown-item has-icon">
               Surat Masuk
@@ -33,8 +33,10 @@
     </nav>
       <div class="main-content" style="padding-left: 30px">
       <section class="section">
-        <div class="row">
-
+        <div class="section-header">
+          <a href="/homepage/suratmasuk" class="btn text-white fa fa-arrow-left bg-primary" style="font-size: 20px; padding: 4px 8px 4px 8px"></a></a>
+          <h1 style="font-size: 30px;">&nbsp;Back</h1>
+        </div>
           <div class="row">
             CATATAN :<br>
             - Preview pdf dibuat tidak sebesar itu tapi tetap efektif<br>
@@ -48,9 +50,9 @@
             </div>
 
             <div class="row">
-              <a>Dibaca oleh</a>
+              <div class="font-size: 20px;">Dibaca oleh:</div>
               {% for person in reader %}
-              <span class="badge bg-primary w-25">
+              <span class="badge rounded-pill bg-primary" style="position: relative; max-width: 150px; padding: 3px; margin-left: 10px; font-size: 20px;">
                 {{ person }}
               </span>
               {% endfor %}
@@ -60,10 +62,10 @@
             <!-- NOTE -->
             <!-- bagian approve ini diganti barcode, pake library. -->
             <!-- valuenya udah ada di person.qr_code -->
-            <div class="row">
-              <a>Diapprove oleh</a>
+            <div class="row mt-2">
+              <div class="font-size: 20px;">Diapprove oleh:</div>
               {% for person in approve_list %}
-              <span class="badge bg-success w-25">
+              <span class="badge rounded-pill bg-success" style="position: relative; max-width: 150px; padding: 3px; margin-left: 10px; font-size: 20px;">
                 {{ person.qr_code }}
               </span>
               {% endfor %}
@@ -76,7 +78,7 @@
               </form>
             </div>
         </div>
-        </section>
+      </section>
 
 
         

@@ -76,99 +76,67 @@
         <div class="section-header">
           <h1>Dashboard</h1>
         </div>
-        <!-- Surat masuk -->
+        <!-- Input Surat masuk -->
         <div class="row">
-          <div class="col-12">
             <div class="card">
-              <div class="card-body">
-                <div class="section-title mt-0">Surat Masuk</div>
-                <table class="table table-hover table-responsive">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nama File</th>
-                      <th scope="col">Pengirim</th>
-                      <th scope="col">Deskripsi</th>
-                      <th scope="col">Jenis Berkas</th>
-                      <th scope="col">Tipe Berkas</th>
-                      <th scope="col" colspan="3" class="text-center">Config</th>
-                      <br>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for i in sm_list %}
-                    <tr>
-                      <td>{{ i.fileName }}</td>
-                      <td>{{ i.sender}} </td>
-                      <td>{{ i.description}} </td>
-                      <td>{{ i.jenisBerkas}} </td>
-                      <td>{{ i.get_typeBerkas_display }} </td>
-                      <form method="/delete/">
-                        <td style="max-width: 70px;" class="p-0"><a href="{{i.fileName}}" class="btn btn-primary btn-xs" style="max-width: 50px;"><i class="fa fa-eye"></i></a></td>
-                        <td style="max-width: 70px;" class="p-1"><a href="edit/{{i.fileName}}" class="btn btn-primary"  style="max-width: 50px;"><i class="fa fa-edit"></i></a></td>
-                        <td style="max-width: 70px; padding: 0px 5px 0px 0px;">
-                          <input type="hidden" name="delete-id" value="{{i.filename}}">
-                          <button class="btn bg-danger btn-xs text-white"  style="max-width: 50px;">
-                            <i class="fa fa-trash-alt white" aria-hidden="true"></i>
-                          </button>
-                        </td>
-                      </form>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
+                <div class="card-header">
+                <h4>Input Surat Masuk</h4>
+                </div>
+                <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="namaBerkas">Nama Berkas</label>
+                        <input type="text" class="form-control" id="namaBerkas" placeholder="Nama berkas">
+                        </div>
+                    <div class="form-group col-md-6">
+                        <label>File</label>
+                        <input type="file" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tipe Berkas</label>
+                      <select class="custom-select">
+                        <option selected>Pilih tipe berkas</option>
+                        <option value="1">Sangat Penting</option>
+                        <option value="2">Penting</option>
+                        <option value="3">B aja</option>
+                      </select>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" class="form-control" id="department" placeholder="Department">
+                </div>
+                <div class="form-group">
+                    <label for="uploadFor">Upload For</label>
+                    <input type="text" class="form-control" id="uploadFor" placeholder="Upload For">
+                </div>
+                <div class="form-group">
+                    <label for="addressSender">Address Sender</label>
+                    <input type="text" class="form-control" id="addressSender" placeholder="Address sender">
+                </div>
+                <div class="form-group">
+                    <label for="sender">Sender</label>
+                    <input type="text" class="form-control" id="sender" placeholder="Sender">
+                </div>
+                <div class="form-group">
+                    <label for="perihal">Perihal</label>
+                    <input type="text" class="form-control" id="perihal" placeholder="Perihal">
+                </div>
+                <div class="form-group">
+                    <label for="noSurat">Nomor Surat</label>
+                    <input type="text" class="form-control" id="noSurat">
+                </div>
+                </div>
+                <div class="card-footer">
+                <button class="btn btn-primary">Submit</button>
+                </div>
             </div>
-          </div>
-        </div>
-              
-        <!-- Surat Keluar -->
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-body">
-                <div class="section-title-keluar mt-0">Surat Keluar</div>
-                <table class="table table-hover table-responsive">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nama File</th>
-                      <th scope="col">Pengirim</th>
-                      <th scope="col">Jenis Berkas</th>
-                      <th scope="col">Tipe Berkas</th>
-                      <th scope="col">Status Terbaca</th>
-                      <th scope="col" colspan="3" class="text-center">Config</th>
-                      <br>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for i in sk_list %}
-                    <tr>
-                      <td>{{i.fileName }}</td>
-                      <td>{{ i.sender}} </td>
-                      <td>{{ i.deskripsi}} </td>
-                      <td>{{ i.jenisBerkas}} </td>
-                      <td>{{ i.get_typeBerkas_display }} </td>
-                      <form method="/delete/">
-                        <td style="max-width: 70px;" class="p-0"><a href="{{i.fileName}}" class="btn btn-primary btn-xs" style="max-width: 50px;"><i class="fa fa-eye"></i></a></td>
-                        <td style="max-width: 70px;" class="p-1"><a href="edit/{{i.fileName}}" class="btn btn-primary"  style="max-width: 50px;"><i class="fa fa-edit"></i></a></td>
-                        <td style="max-width: 70px; padding: 0px 5px 0px 0px;">
-                          <input type="hidden" name="delete-id" value="{{i.filename}}">
-                          <button class="btn bg-danger btn-xs text-white"  style="max-width: 50px;">
-                            <i class="fa fa-trash-alt white" aria-hidden="true"></i>
-                          </button>
-                        </td>
-                      </form>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
     </div>
   </div>
 </div>
+
 
 <!-- General JS Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
