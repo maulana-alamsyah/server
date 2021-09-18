@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="app">
+  <div class="main-wrapper">
+    <!-- NAVBAR -->
+    <div class="navbar-bg mr-auto"></div>
+    <nav class="navbar navbar-expand-lg main-navbar">
+      <!-- Search element -->
+      <form class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+          <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+          <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+        </ul>
+      </form>
+      <!-- Notif & profile -->
+      <ul class="navbar-nav navbar-right">
+       
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+          
+          <div class="d-sm-none d-lg-inline-block">Administrator</div></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a href="" class="dropdown-item has-icon">
+              <i class="far fa-user"></i> Profile
+            </a>
+            <a href="" class="dropdown-item has-icon">
+              <i class="fas fa-bolt"></i> Activities
+            </a>
+            <a href="" class="dropdown-item has-icon">
+              <i class="fas fa-cog"></i> Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'logout' %}" class="dropdown-item has-icon text-danger">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </div>
+        </li>
+      </ul>
+      <!-- NAVBAR -->
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="main-sidebar">
+      <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+          <a href="index.html">COMPANY</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+          <a href="index.html">X</a>
+        </div>
+
+        <!-- SIDEBAR -->
+        <ul class="sidebar-menu">
+            <li class="menu-header">MENU</li>
+            <li class="nav-item dropdown active">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i><span>Input Surat</span></a>
+              <ul class="dropdown-menu">
+                <li class="active"><a class="nav-link active" href="suratmasuk">Surat Masuk</a></li>
+                <li><a class="nav-link" href="suratkeluar/">Surat Keluar</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown active">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i><span>Konfigurasi</span></a>
+                <ul class="dropdown-menu">
+                  <li class="active"><a class="nav-link active" href="department/">Department</a></li>
+                  <li><a class="nav-link" href="pengguna/">Pengguna</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- END SIDEBAR -->
+      </aside>
+    </div>
+    <div class="main-content">
+      <section class="section">
+        <div class="section-header">
+          <h1>Dashboard</h1>
+        </div>
+        <div class="row" style="padding-left: 2em;">
+            Di isi tabel list surat masuk karo metu lam, brarti ada 2 tabel, button preview dan hapus di tabel
+            <br>
+            ini data surat masuk : {{ sm_list }}
+            <br>
+            ini data surat keluar : {{ sk_list }}
+            <br>
+            Data bentuk query set list, pake looping
+        </div>
+        <div class="row" style="padding-left: 2em; margin-top: 3em;">
+            Sisan gawe 'super_inputmasuk.html' nggo input surat masuk, field sesuai sing tak kirim ng chat
+            <br>
+            'super_inputkeluar.html' sisan juga field sesuai sing ng chat
+        </div>
+      </section>
+    </div>
+
+
+<!-- General JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+{%load static%}
+<script src="{% static 'bootstrap/js/stisla.js' %}"></script>
+
+<!-- JS Libraies -->
+
+<!-- Template JS File -->
+<script src="{% static 'bootstrap/js/scripts.js' %}"></script>
+<script src="{% static 'bootstrap/js/custom.js' %}"></script>
+<script src="{% static 'bootstrap/js/index.js' %}"></script>
+
+
+
+{% endblock %}
